@@ -12,6 +12,7 @@ const difference = (input) => {
         return acc += Math.abs(curr - rightList[index])
     }, 0)
 }
+
 const descending = (a, b) => a - b
 
 const similarity = (input) => {
@@ -36,8 +37,6 @@ const getLists = (input) => {
 
     return { leftList, rightList }
 }
-
-
 
 const testInput = `3   4
 4   3
