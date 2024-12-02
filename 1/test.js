@@ -2,7 +2,19 @@ const input = require("./input.js")
 
 const descending = (a, b) => a - b
 
-const doIt = (input) => {
+const difference = (input) => {
+
+    const { leftList, rightList } = getLists(input)
+
+    leftList.sort(descending)
+    rightList.sort(descending)
+
+    return leftList.reduce((acc, curr, index) => {
+        return acc += Math.abs(curr - rightList[index])
+    }, 0)
+}
+
+const getLists = (input) => {
     const leftList = []
     const rightList = []
 
@@ -15,25 +27,26 @@ const doIt = (input) => {
             rightList.push(numbers[1])
         })
 
-    leftList.sort(descending)
-    rightList.sort(descending)
-
-    return leftList.reduce((acc, curr, index) => {
-        return acc += Math.abs(curr - rightList[index])
-    }, 0)
+    return { leftList, rightList }
 }
 
-describe('day 1', () => {
-    test('part 1 test data', () => {
-        const testInput = `3   4
+
+
+const testInput = `3   4
 4   3
 2   5
 1   3
 3   9
 3   3`
-        expect(doIt(testInput)).toEqual(11)
+
+describe('day 1', () => {
+    test('part 1 test data', () => {
+        expect(difference(testInput)).toEqual(11)
     })
     test('part 1 real data', () => {
-        expect(doIt(input)).toEqual(2742123)
+        expect(difference(input)).toEqual(2742123)
     })
+    // test('part 2 test data', () => {
+    //     expect(false).toEqual(true)
+    // })
 })
