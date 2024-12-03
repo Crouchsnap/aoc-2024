@@ -14,19 +14,19 @@ const doIt = (input) => {
 const doItPartTwo = (input) => {
     let enabled = true
     return getPartTwoStatements(input).reduce((acc, curr) => {
-        if (curr === 'do()') {
-            enabled = true
-            return acc
-        } else if (curr === "don't()") {
-            enabled = false
-            return acc
-        } else {
-            if (enabled) {
+        switch (true) {
+            case curr === 'do()':
+                enabled = true
+                break
+            case curr === "don't()":
+                enabled = false
+                break
+            case enabled:
                 const numbers = getNumbers(curr)
-                return acc += (numbers[0] * numbers[1])
-            }
-            return acc
+                acc += (numbers[0] * numbers[1])
+                break
         }
+        return acc
     }, 0)
 }
 
@@ -72,6 +72,6 @@ describe('day 3 part 2', () => {
         expect(doItPartTwo(partTwoTestInput)).toEqual(48)
     })
     test('real data', () => {
-        expect(doItPartTwo(input)).toEqual(184511516)
+        expect(doItPartTwo(input)).toEqual(90044227)
     })
 })
