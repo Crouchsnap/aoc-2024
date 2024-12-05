@@ -99,7 +99,7 @@ const doItPart2 = (data) => {
 }
 
 
-describe('day 2 part 1', () => {
+describe('day 4 part 1', () => {
     test('parser works', () => {
         expect(parseData(testInput)[0]).toEqual(['M', 'M', 'M', 'S', 'X', 'X', 'M', 'A', 'S', 'M'])
         expect(parseData(testInput)[9][3]).toEqual('X')
@@ -115,7 +115,7 @@ describe('day 2 part 1', () => {
     })
 })
 
-describe('day 2 part 2', () => {
+describe('day 4 part 2', () => {
 
     test('test data', () => {
         expect(doItPart2(testInput)).toEqual(9)
