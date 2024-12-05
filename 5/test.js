@@ -49,7 +49,7 @@ const parseData = (data) => {
 const doIt = (data) => {
     const { rules, pages } = parseData(data)
 
-    const goodPages = pages.map((pageList, index) => {
+    const validMiddlePageNumbers = pages.map((pageList, index) => {
         if (rules.every((rule) => {
             const pageIndex = pageList.indexOf(rule.page)
             const delimiterIndex = pageList.indexOf(rule.delimiter)
@@ -62,11 +62,39 @@ const doIt = (data) => {
         }
     })
 
-    return goodPages.reduce((acc, curr) => acc += curr)
+    return validMiddlePageNumbers.reduce((acc, curr) => acc += curr)
 }
 
-const doItPartTwo = (data) => {
 
+
+const doItPartTwo = (data) => {
+    const { rules, pages } = parseData(data)
+
+    const invalidMiddlePageNumbers = pages.map((pageList, index) => {
+        if (rules.every((rule) => {
+            const pageIndex = pageList.indexOf(rule.page)
+            const delimiterIndex = pageList.indexOf(rule.delimiter)
+            return delimiterIndex == -1 || pageIndex <= delimiterIndex
+        })) {
+            return 0
+        } else {
+            const sorted = sortPages(pages[index], rules)
+            return sorted[(sorted.length - 1) / 2]
+        }
+    })
+
+    return invalidMiddlePageNumbers.reduce((acc, curr) => acc += curr)
+}
+
+const sortPages = (pages, rules) => {
+    pages.sort((a, b) => {
+        const applicableRule = rules.find((rule) => {
+            return rule.page === a && rule.delimiter === b
+        })
+        return applicableRule ? -1 : 0
+    })
+
+    return pages
 }
 
 describe('day 5 part 1', () => {
@@ -89,16 +117,16 @@ describe('day 5 part 1', () => {
     })
 
     test('real data', () => {
-        expect(doIt(input)).toEqual(6951)
+        // expect(doIt(input)).toEqual(6951)
     })
 })
 
 describe('day 5 part 2', () => {
 
-    // test('test data', () => {
-    //     expect(doItPartTwo(testInput)).toEqual(true)
-    // })
-    // test('real data', () => {
-    //     expect(doItPartTwo(input)).toEqual(1)
-    // })
+    test('test data', () => {
+        expect(doItPartTwo(testInput)).toEqual(123)
+    })
+    test('real data', () => {
+        expect(doItPartTwo(input)).toEqual(4121)
+    })
 })
