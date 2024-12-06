@@ -4,5 +4,8 @@
   },
   "scripts": {
     "test": "jest"
+  },
+  "jest": {
+    "testTimeout": 5000
   }
 }

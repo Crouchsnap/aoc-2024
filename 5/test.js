@@ -93,7 +93,6 @@ const sortPages = (pages, rules) => {
         })
         return applicableRule ? -1 : 0
     })
-
     return pages
 }
 
@@ -117,7 +116,7 @@ describe('day 5 part 1', () => {
     })
 
     test('real data', () => {
-        // expect(doIt(input)).toEqual(6951)
+        expect(doIt(input)).toEqual(6951)
     })
 })
 
